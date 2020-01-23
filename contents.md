@@ -18,11 +18,10 @@ Create a RESTful API for the app.
     2.3.2 - sign up using Facebook account (register)  
     2.3.3 - sign in using Facebook account (consume)  
 2.4 - logged user   
-    2.4.1 - register a tourist spot (picture, name, geographical location, category)  
+    2.4.1 - register a tourist spot (picture, name, geographical location, category) 
+    2.4.1.1 - converter the picture into a string long
     2.4.2 - explore tourist spots (consume)  
     2.4.3 - tourist spots in a 5 km radius from a given location (consume)  
-    2.4.3.1 - given current location return a json with the tourist spots data  
-    2.4.3.2 - uses only euclidian distance to measure the radius  
     2.4.4 - search for tourist spots by name  
     2.4.5 - comment about a tourist spot (search the spot and comment it)   
     2.4.6 - see comments about a tourist spot (search the spot and print comments)   
@@ -43,3 +42,34 @@ Create a RESTful API for the app.
 3.4 - Instructions how to run the development environment  
 3.5 - Instructions how to deploy    
 3.6 - A Postman collection   
+
+
+##### Comments
+4.1 - All tourist spots are associated with some user
+4.1 - Not all users are associated with come tourist spot (new users)
+4.3 - There are two ways to register a tourist spot
+4.3.1 - user
+4.3.2 - admin
+
+
+##### Endpoints
+
+POST /user {name:}
+POST /user/<string:name>/tourist-spot  {picture:, name:, gps:, category:}
+
+GET /user/<string:name> 
+GET /user/<string:name>/tourist-spot/<string:name>
+
+
+POST /admin/tourist-spots {picture:, name:, gps:, category:}
+
+GET /user/<string:name>/tourist-spot/<string:name>
+/users/tourist-spot/commits
+
+/users/<string:tourist-spot>/<tuple:gps_cords>                  2.4.3 
+/users/<sting:tourist-spot>/<integer:upvote>                   2.4.11
+/users/<string:tourist_spot_name>/commits              2.4.6
+
+/tourist-spots/<string:name>        2.4.4 
+
+
