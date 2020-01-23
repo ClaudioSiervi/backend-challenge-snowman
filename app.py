@@ -58,10 +58,21 @@ def create_tourist_spot():
     tourist_spots.append(new_tourist_spot)   
     return jsonify(new_tourist_spot)
 
+
 # GET /tourist-spots
 @app.route("/tourist-spot", methods = ["GET"])
-def get_tourist_spot():
+def get_tourist_spots():
     return jsonify({"tourist_spots": tourist_spots})
+
+
+# GET /tourist-spot/<string:name>
+@app.route("/tourist-spot/<string:name>", methods = ["GET"])
+def get_tourist_spot(name):
+    for tourist_spot in tourist_spots:
+        if tourist_spot['name'] == name:
+            return jsonify(tourist_spot)
+    return jsonify({'messege': "tourist spot not found"})
+
 
 
 app.run(debug=True, port=4999)
