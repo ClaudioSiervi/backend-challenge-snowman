@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
 from flask_jwt import JWT, jwt_required
 
 from security import authenticate, identity
@@ -27,10 +27,13 @@ class Category(Resource):
 
     @jwt_required()   # force authentication
     def post(self, name):
-        data_requested = request.get_json()
+        parser = reqparse.RequestParser()
+        parser.add_argument("user_id", type=int, help="This field cannot be left blank!")
+        request_data = parser.parse_args()
+
         new_category = {
             "name": name,
-            "user_id": data_requested['user_id']
+            "user_id": request_data['user_id']
         }
         categories.append(new_category)
         return {"new_category": new_category}
@@ -52,13 +55,21 @@ class TouristSpot(Resource):
     
     # POST /tourist-spot {name:}
     def post(self, name):
-        request_data = request.get_json()
+        parser = reqparse.RequestParser()
+
+        parser.add_argument('gps', type=dict, help='This field cannot be left blank!')
+        parser.add_argument('category', type=str, required=True, help='This field cannot be left blank!')
+        parser.add_argument('pictures', type=dict, help='This field cannot be left blank!')
+
+        request_data = parser.parse_args()
+
         new_tourist_spot = {
                 "name": name,
                 "gps": request_data['gps'],
                 "category": request_data['category'],
                 "pictures": request_data['pictures'] 
                 }
+        
         tourist_spots.append(new_tourist_spot)   
         return {"new_tourist_spot": new_tourist_spot}
 
