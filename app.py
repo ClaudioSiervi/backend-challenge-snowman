@@ -1,78 +1,41 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
+api = Api(app)
 
-# tourist spot categories = ("Park", "Museum", "Theater", "Monument")
-categories = [
-        {
-            "id": 1,
-            "name": "Park",
-            "description": "Some symple text..."
-        },
-        {
-            "id": 2,
-            "name": "Museum",
-            "description": "Some symple text..."
-        },
-]
+tourist_spots = []
 
-# tourist spot filds = (picture, name, geographical location, category) 
-tourist_spots = [
-    {
-        'name': 'Passeio Público',
-        'gps' : [],
-        'category': categories[0]['name'],
-        'pictures' : [
-            {
-                "name": "name-picture",
-                "content": "string-represent-picture"
-            }
-        ]
-    },
-    {
-        'name': 'Museu Oscar Niemeyer',
-        'gps' : [],
-        'category': categories[1]['name'],
-        'pictures' : [
-            {
-                "name": "name-picture",
-                "content": "string-represent-picture"
-            }
-        ]
-    }
-]
-
-
-
-# POST /tourist-spot {name:}
-@app.route('/tourist-spot', methods = ['POST'])
-def create_tourist_spot():
-    # this request creates a new tourist spot into tourist-spot resource
-    request_data = request.get_json()
-    new_tourist_spot = {
-        "name": request_data['name'],
-        "gps": request_data['gps'],
-        "category": request_data['category'],
-        "pictures": [] 
-        }
-    tourist_spots.append(new_tourist_spot)   
-    return jsonify(new_tourist_spot)
+class TouristSpot(Resource):
+   
+    # GET /tourist-spot/<string:name>
+    def get(self, name):
+        for tourist_spot in tourist_spots:
+            if tourist_spot['name'] == name:
+                return {"tourist_spot": tourist_spot}
+        return {'messege': "tourist spot not found"}
+    
+    # POST /tourist-spot {name:}
+    def post(self, name):
+        request_data = request.get_json()
+        new_tourist_spot = {
+                "name": name,
+                "gps": request_data['gps'],
+                "category": request_data['category'],
+                "pictures": request_data['pictures'] 
+                }
+        tourist_spots.append(new_tourist_spot)   
+        return {"new_tourist_spot": new_tourist_spot}
 
 
 # GET /tourist-spots
-@app.route("/tourist-spot", methods = ["GET"])
-def get_tourist_spots():
-    return jsonify({"tourist_spots": tourist_spots})
+class TouristSpotList(Resource):
+    def get(self):
+        return {"tourist_spots": tourist_spots}
 
 
-# GET /tourist-spot/<string:name>
-@app.route("/tourist-spot/<string:name>", methods = ["GET"])
-def get_tourist_spot(name):
-    for tourist_spot in tourist_spots:
-        if tourist_spot['name'] == name:
-            return jsonify(tourist_spot)
-    return jsonify({'messege': "tourist spot not found"})
-
+api.add_resource(TouristSpot, "/tourist-spot/<string:name>")
+api.add_resource(TouristSpotList, "/tourist-spot")
 
 
 app.run(debug=True, port=4999)
