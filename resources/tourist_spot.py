@@ -13,7 +13,7 @@ class TouristSpotRegister(Resource):
                 help='This field cannot be left blank!')
     parser.add_argument('id_category', 
                 type=str, 
-                required=False, 
+                required=True, 
                 help='This field cannot be left blank!')
     parser.add_argument('id_user', 
                 type=str, 
@@ -30,8 +30,11 @@ class TouristSpotRegister(Resource):
                 "id_category": request_data['id_category'],
                 "id_user": request_data['id_user'] 
         }
-        TrouristSpot.insert(new_spot)
 
+        try:
+            TrouristSpot.insert(new_spot)
+        except:
+            return {"Messege": "An error occured inserting the tourist spot."}, 500
         return new_spot, 201
 
 
@@ -65,10 +68,17 @@ class TouristSpotList(Resource):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
-        query = 'SELECT name FROM tourist_spots'
-        cursor.execute(query)
-
-        tourist_spot_list = cursor.fetchall()
+        query = 'SELECT * FROM tourist_spots'
+        result = cursor.execute(query)
+        
+        tourist_spot_list = []
+        for row in result:
+            tourist_spot_list.append({ "id": row[0],
+                            "name": row[1],
+                            "gps": row[2],
+                            "id_category": row[3],
+                            "id_user": row[4] 
+            })
 
         connection.commit()
         connection.close()
