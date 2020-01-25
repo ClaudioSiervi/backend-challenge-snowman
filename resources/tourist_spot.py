@@ -3,7 +3,6 @@ import sqlite3
 
 from models.tourist_spot import TrouristSpot
 
-tourist_spots = []
 
 class TouristSpotRegister(Resource):
     
@@ -24,10 +23,8 @@ class TouristSpotRegister(Resource):
     def post(cls, name):
 
         request_data = cls.parser.parse_args()  
-        
         # if TrouristSpot.find_by_name(name) is not None:
         #     return {"messege ": "This tourist spot already registred."}
-
         new_spot = {
                 "name": name,
                 "gps": request_data['gps'],
@@ -44,18 +41,27 @@ class TouristSpotRegister(Resource):
         connection.close()
 
         return new_spot, 201
-        
-        #tourist_spots.append(new_tourist_spot)
-        #return {"new_tourist_spot": new_tourist_spot}
 
 
-
+# select a specific tourist spot
 class TouristSpot(Resource):
     # GET /tourist-spot/<string:name>
     def get(self, name):
+
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = 'SELECT name FROM tourist_spots'
+        cursor.execute(query)
+        tourist_spots = cursor.fetchall()
+        
+        connection.commit()
+        connection.close()
+
         for tourist_spot in tourist_spots:
-            if tourist_spot['name'] == name:
-                return {"tourist_spot": tourist_spot}
+            if tourist_spot[0] == name:
+                return {"tourist_spot": tourist_spot[0]}
+
         return {'messege': "tourist spot not found"}
     
    
@@ -63,4 +69,16 @@ class TouristSpot(Resource):
 class TouristSpotList(Resource):
     # GET /tourist-spots
     def get(self):
-        return {"tourist_spots": tourist_spots}
+        
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = 'SELECT name FROM tourist_spots'
+        cursor.execute(query)
+
+        tourist_spot_list = cursor.fetchall()
+
+        connection.commit()
+        connection.close()
+
+        return {"tourist_spot_list": tourist_spot_list}
