@@ -1,12 +1,6 @@
 from flask_restful import Resource, reqparse
 
 tourist_spots = []
-categories = [
-        {"name": "Park", "user_id":"0"},
-        {"name": "Museum", "user_id":"0"}, 
-        {"name": "Theater", "user_id":"0"},
-        {"name": "Monument", "user_id":"0"}
-    ]
 
 class TouristSpot(Resource):
    
