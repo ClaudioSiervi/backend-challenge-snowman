@@ -1,5 +1,5 @@
 
-from user import User                       # local package
+from resources.user import User                       # local package
 from werkzeug.security import safe_str_cmp # safe string compare for password
 
 
