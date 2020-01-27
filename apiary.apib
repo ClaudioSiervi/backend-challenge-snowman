@@ -13,9 +13,15 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
 + password
 
 ## UserRegister (object)
-+ id
 + username
 + password
+
+
+## TouristSpot (object)
++ id
++ name
++ gps
++ id_category
 
 
 # Group Website
@@ -34,6 +40,42 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
     
             Content-Type: application/json
 
+    + Body
+
+            {
+                "username":"Usuario",
+                "password":"54321"
+            }
+
 + Response 201 (application/json)
 
     + Attributes (array[UserRegister])
+    
+    
+    
+## Tourist Spot [/tourist-spot]
+### Tourist Spot List [GET]
++ Response 200 (application/json)
+
+    + Attributes (array[TouristSpot])
+    
+### Tourist Spot Registry [POST /tourist-spot]
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+    
+            Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1ODAxNDE2MDEsImlhdCI6MTU4MDE0MTMwMSwibmJmIjoxNTgwMTQxMzAxLCJpZGVudGl0eSI6MX0.hwT7XSn-iKnsu5NJJe8960NV2EZty5hmQ426VPYU-8Y
+
+    + Body
+
+            {
+                "name":"Nice Place",
+                "gps":"(lati, long)",
+                "id_category": 1
+            }
+
++ Response 201 (application/json)
+
+    + Attributes (array[TouristSpot])
