@@ -1,22 +1,42 @@
-import sqlite3
+from db import db
 
+class TouristSpotModel(db.Model):
+    __tablename__='tourist_spots'
 
-class TrouristSpot():
-    def find_by_name(self, name):
-        pass
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    gps = db.Column(db.String(50))
+    id_category = db.Column(db.String(10))
 
-    def find_spots_aroud(self, name, gps):
-        pass
+    def __init__(self, name, gps, id_category):
+        self.name = name
+        self.gps = gps
+        self.id_category = id_category
+
+    def json(self):
+        return {
+            "name" : self.name,
+            "gps" : self.gps,
+            "id_category" : self.id_category
+        }
 
     @classmethod
-    def insert(self, new_spot):
-        # if TrouristSpot.find_by_name(name) is not None:
-        #     return {"messege ": "This tourist spot already registred."}
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
+    def find_spots_by_name(cls, name):
+        return cls.query.filter_by(name=name)
+     
+    @classmethod
+    def find_spots_by_user(self, username):
+        #return TouristSpotModel.query.filter_by(username=username)
+        pass
+    
+    @classmethod
+    def find_nearest_spots(self, gps):
+        pass
 
-        query = 'INSERT INTO tourist_spots VALUES (NULL, ?, ?, ?, ?)'
-        cursor.execute(query, (new_spot['name'], new_spot['gps'], new_spot['id_category'], new_spot['id_user']))
 
-        connection.commit()
-        connection.close()
+    def save_to_db(self):   # insert and update
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        pass
