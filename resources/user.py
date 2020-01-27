@@ -1,5 +1,7 @@
 from flask_restful import Resource, reqparse
 
+from models.user import UserModel
+
 
 class UserRegister(Resource):
     
@@ -15,19 +17,21 @@ class UserRegister(Resource):
                 help='This field cannot be blank.'
     )
     
-    def post(self):
-        data = UserRegister.parser.parse_args()
+    def post(cls):
+        data = cls.parser.parse_args()
 
-        if User.find_by_username(data['username']) is not None:
+        if UserModel.find_by_username(data['username']) is not None:
             return {"messege ": "This username already exists."}
 
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
+        user = UserModel(**data)
+        try:
+            user.save_to_db()
+        except:
+             return {"Messege": "An error occured inserting the username."}, 500
+        return ({"messege ": "User created."}), 201
 
-        query = 'INSERT INTO users VALUES (NULL, ?, ?)'
-        cursor.execute(query, (data['username'], data['password'],))
 
-        connection.commit()
-        connection.close()
-
-        return ({"messege ": "User created."})
+class UserList(Resource):
+    pass
+    def get(self):
+            return {"username_list": list(map(lambda x: x.json(), UserModel.query.all()))}
