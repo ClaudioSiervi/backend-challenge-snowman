@@ -1,29 +1,25 @@
-from db import db
+import sqlite3
 
-class UserModel(db.Model):
-    __tablename__='users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50))
-    password = db.Column(db.String(50))
-
-    def __init__(self, username, password):
+class User:
+    def __init__(self, _id, username, password):
+        self.id = _id
         self.username = username
         self.password = password
-
-    def json(self):
-        return {
-            "username" : self.username
-        }
+    
 
     @classmethod
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor() # collecting data from here
 
-    @classmethod
-    def find_by_user_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
+        query = "SELECT * FROM users WHERE username=?" # search user
+        result = cursor.execute(query, (username,))  # apply a tuple to the query
+        row = result.fetchone()  # return the first row found
 
-    def save_to_db(self): 
-        db.session.add(self)
-        db.session.commit()
+        if row is not None:
+            user = cls(*row) # parse a set of positional arguments
+        else:
+            user = None  # user not found
+
+        connection.close()
+        return user
