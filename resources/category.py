@@ -6,7 +6,6 @@ from models.category import CategoryModel
 
 
 class CategoryRegister(Resource):
-    
     pass
 
 

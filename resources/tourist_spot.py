@@ -17,7 +17,7 @@ class TouristSpot(Resource):
                 # required=False,
                 help='The field "gps" cannot be left blank!')
     parser.add_argument('id_category', 
-                type=str, 
+                type=int, 
                 # required=True, 
                 help='The field "id_category" cannot be left blank!')
 
