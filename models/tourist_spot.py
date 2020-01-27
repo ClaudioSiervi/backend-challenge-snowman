@@ -6,7 +6,9 @@ class TouristSpotModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     gps = db.Column(db.String(50))
-    id_category = db.Column(db.String(10))
+
+    id_category = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category = db.relationship('CategoryModel')
 
     def __init__(self, name, gps, id_category):
         self.name = name
