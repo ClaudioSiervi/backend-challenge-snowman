@@ -3,7 +3,7 @@ HOST: https://snowman-challange-api.herokuapp.com
 
 # Snowman Backend Challenge
 
-Polls is a simple API allowing users to view tourist spots and vote in them.
+That is a simple API allowing users to view tourist spots and vote in them.
 
 # Data Structures
 
@@ -23,8 +23,12 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
 + gps
 + id_category
 
+# Category (object)
++ id
++ name
 
-# Group Website
+
+# Group API Endpoints
 
 ## User [/users]
 ### User List [GET]
@@ -52,13 +56,34 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
     + Attributes (array[UserRegister])
     
     
+### User Acess Token [POST /auth]
++ Request
+
+    + Headers
     
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "username":"Lucas",
+                "password":"qwer"
+            }
+
++ Response 201 (application/json)
+
+    + Attributes (array[UserRegister])
+    
+    
+
 ## Tourist Spot [/tourist-spot]
 ### Tourist Spot List [GET]
 + Response 200 (application/json)
 
     + Attributes (array[TouristSpot])
     
+
+
 ### Tourist Spot Registry [POST /tourist-spot]
 + Request
 
@@ -66,7 +91,7 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
     
             Content-Type: application/json
     
-            Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1ODAxNDE2MDEsImlhdCI6MTU4MDE0MTMwMSwibmJmIjoxNTgwMTQxMzAxLCJpZGVudGl0eSI6MX0.hwT7XSn-iKnsu5NJJe8960NV2EZty5hmQ426VPYU-8Y
+            WW-Authenticate: Basic realm="protected"
 
     + Body
 
@@ -79,3 +104,30 @@ Polls is a simple API allowing users to view tourist spots and vote in them.
 + Response 201 (application/json)
 
     + Attributes (array[TouristSpot])
+    
+
+
+
+## Category [/category]
+### Category List [GET]
++ Response 200 (application/json)
+
+    + Attributes (array[Category])
+
+
+### Category Registry [POST /category]
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "name":"Beach"
+            }
+
++ Response 201 (application/json)
+
+    + Attributes (array[Category])
