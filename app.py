@@ -20,6 +20,23 @@ app.secret_key = "snowman"
 
 api = Api(app)
 
+@app.before_first_request
+def create_tables():
+
+    db.create_all()
+    
+    me = CategoryModel('Park')
+    db.session.add(me)
+    me = CategoryModel('Museum')
+    db.session.add(me)
+    me = CategoryModel('Theater')
+    db.session.add(me)
+    me = CategoryModel('Monument')
+
+    db.session.add(me)
+    db.session.commit()
+
+
 jwt = JWT(app, authenticate, identity)  # /auth
 
 # api.add_resource(Picture, "/tourist_spots/<string:name>/picture")
