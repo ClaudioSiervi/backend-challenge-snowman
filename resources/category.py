@@ -13,7 +13,7 @@ class Category(Resource):
                     type=str, 
                     help="The field 'name' cannot be left blank!")
 
-    parser.add_argument("user_id", 
+    parser.add_argument("id_user", 
                 type=str, 
                 help="The field 'user_id' cannot be left blank!")
 
