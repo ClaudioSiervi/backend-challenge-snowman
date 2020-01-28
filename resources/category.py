@@ -2,35 +2,42 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
-categories = [
-        {"name": "Park", "user_id":"0"},
-        {"name": "Museum", "user_id":"0"}, 
-        {"name": "Theater", "user_id":"0"},
-        {"name": "Monument", "user_id":"0"}
-    ]
+from models.category import CategoryModel
+from db import db
 
 class Category(Resource):
 
     parser = reqparse.RequestParser()
-    parser.add_argument("user_id", type=int, help="This field cannot be left blank!")
 
-    def get(self, name):
-        for category in categories:
-            if category['name'] == name:
-                return {"category": category}
-        return {'messege': "category not found"}
+    parser.add_argument("name", 
+                    type=str, 
+                    help="The field 'name' cannot be left blank!")
 
-    @jwt_required()   # force authentication
-    def post(self, name):
-        request_data = Category.parser.parse_args() # prevent parsing errors
-        new_category = {
-            "name": name,
-            "user_id": request_data['user_id']
-        }
-        categories.append(new_category)
-        return {"new_category": new_category}
+    parser.add_argument("id_user", 
+                type=str, 
+                help="The field 'user_id' cannot be left blank!")
 
-
-class CategoryList(Resource):
+    # @jwt_required
     def get(self):
-        return {"categories": categories}
+        # GET /category
+        return {"category_list": list(map(lambda x: x.json(), CategoryModel.query.all()))}
+
+    # @jwt_required()
+    def post(cls):
+        # POST /category
+        data = cls.parser.parse_args()  
+
+        category = CategoryModel(**data)
+        try:
+            category.save_to_db()
+        except:
+             return {"Messege": "An error occured inserting the category."}, 500
+        return category.json(), 201
+        
+
+class CategoryFinder(Resource):
+    
+    def get(self, name):
+        # GET /category/<string:name>
+        category = CategoryModel.find_category_by_name(name)
+        return {"category_list": list(map(lambda x: x.json(), category))}

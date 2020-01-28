@@ -1,6 +1,1 @@
-flask==1.1.1
-flask_restful==0.3.7
-flask_jwt==0.3.2
-flask-sqlalchemy==2.4.1
-
- 
+-r requirements/prod.txt
