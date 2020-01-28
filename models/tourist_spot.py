@@ -10,6 +10,7 @@ class TouristSpotModel(db.Model):
     
     category = db.relationship('CategoryModel')
     picture = db.relationship('PictureModel')
+    comment = user = db.relationship('CommentModel')
 
     def __init__(self, name, gps, id_category):
         self.name = name
