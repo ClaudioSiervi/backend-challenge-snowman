@@ -4,7 +4,8 @@ from flask_jwt import JWT, jwt_required
 from flask_restful import Api, Resource, reqparse
 
 from resources.tourist_spot import TouristSpot, TouristFilter
-from resources.category import Category, CategoryFinder
+from resources.category import Category, CategoryFinder, CategoryModel
+from resources.picture import Picture
 from security import authenticate, identity
 from resources.user import UserRegister, UserList
 from db import db
@@ -13,21 +14,25 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_EXCEPTIONS'] = True
 
 app.secret_key = "snowman"
 
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity)  # create a new endpoint /auth
+jwt = JWT(app, authenticate, identity)  # /auth
 
-api.add_resource(Category, "/category")
-api.add_resource(CategoryFinder, "/category/<string:name>")
+# api.add_resource(Picture, "/tourist_spots/<string:name>/picture")
 
-api.add_resource(TouristFilter, "/tourist-spot/<string:name>")
-api.add_resource(TouristSpot, "/tourist-spot")
+api.add_resource(Category,       "/categories")
+api.add_resource(CategoryFinder, "/categories/<string:name>")
 
-api.add_resource(UserRegister, "/user/register")
+api.add_resource(TouristSpot,   "/tourist-spots")
+api.add_resource(TouristFilter, "/tourist-spots/<string:name>")
+
 api.add_resource(UserList, "/users")
+api.add_resource(UserRegister, "/users/register")
+
 
 # prevent to run the app when import source
 if __name__ == "__main__":
