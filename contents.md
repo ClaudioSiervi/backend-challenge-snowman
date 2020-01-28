@@ -18,20 +18,18 @@ Create a RESTful API for the app.
     2.3.2 - sign up using Facebook account (register)  
     2.3.3 - sign in using Facebook account (consume)  
 2.4 - logged user   
-    2.4.1 - register a tourist spot (picture, name, geographical location, category) 
-    2.4.1.1 - converter the picture into a string long
-    2.4.2 - explore tourist spots (consume)  
-    2.4.3 - tourist spots in a 5 km radius from a given location (consume)  
-    2.4.4 - search for tourist spots by name  
-    2.4.5 - comment about a tourist spot (search the spot and comment it)   
-    2.4.6 - see comments about a tourist spot (search the spot and print comments)   
-    2.4.7 - add pictures to a tourist spot (various pictures for each spot)   
-    2.4.8 - remove pictures I added to a tourist spot  
-    2.4.9 - favorite a tourist spot  
-    2.4.10 - remove a tourist spot from my favorites  
-    2.4.11 - upvote a tourist spot   
-    2.4.12 - see the tourist spots I registered  
-    2.4.15 - create new categories  
+    2.4.1 - register tourist spot (picture, name, gps, category) 
+    2.4.2 - tourist spots in a 5 km radius from a given location (consume)  
+    2.4.3 - search for tourist spots by name  
+    2.4.4 - comment about a tourist spot (search the spot and comment it)   
+    2.4.5 - see comments about a tourist spot (search the spot and print comments)   
+    2.4.6 - add pictures to a tourist spot (various pictures for each spot)   
+    2.4.7 - remove pictures I added to a tourist spot  
+    2.4.8 - favorite a tourist spot  
+    2.4.9 - remove a tourist spot from my favorites  
+    2.4.10 - upvote a tourist spot   
+    2.4.11 - see the tourist spots I registered  
+    2.4.12 - create new categories  
 
 
 
@@ -44,32 +42,29 @@ Create a RESTful API for the app.
 3.6 - A Postman collection   
 
 
-##### Comments
-4.1 - All tourist spots are associated with some user
-4.1 - Not all users are associated with come tourist spot (new users)
-4.3 - There are two ways to register a tourist spot
-4.3.1 - user
-4.3.2 - admin
-
-
 ##### Endpoints
 
-POST /user {name:}
-POST /user/<string:name>/tourist-spot  {picture:, name:, gps:, category:}
+GET  /users
+POST /users
 
-GET /user/<string:name> 
-GET /user/<string:name>/tourist-spot/<string:name>
+GET  /categiries
+POST /categiries
 
+GET  /tourist-spots
+POST /tourist-spots
 
-POST /admin/tourist-spots {picture:, name:, gps:, category:}
+GET /tourist-spots/nearest-5km-tourist-spots
 
-GET /user/<string:name>/tourist-spot/<string:name>
-/users/tourist-spot/commits
+GET  /tourist-spots/<string:name>
+POST /tourist-spots/<string:name>
 
-/users/<string:tourist-spot>/<tuple:gps_cords>                  2.4.3 
-/users/<sting:tourist-spot>/<integer:upvote>                   2.4.11
-/users/<string:tourist_spot_name>/commits              2.4.6
+GET  /tourist-spots/<string:name>/pictures
+POST /tourist-spots/<string:name>/pictures
+DEL  /tourist-spots/<string:name>/pictures
 
-/tourist-spots/<string:name>        2.4.4 
+GET  /tourist-spots/<string:name>/favorities
+POST /tourist-spots/<string:name>/favorities
+DEL  /tourist-spots/<string:name>/favorities
 
-
+GET  /tourist-spots/<string:name>/commentaries
+POST /tourist-spots/<string:name>/commentaries
