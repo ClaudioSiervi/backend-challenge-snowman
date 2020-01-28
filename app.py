@@ -27,13 +27,13 @@ def create_tables():
 
     db.create_all()
     # id_user = 0 --> admin
-    me = CategoryModel('Park', id_user=0)
+    me = CategoryModel('Park', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Museum', id_user=0)
+    me = CategoryModel('Museum', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Theater', id_user=0)
+    me = CategoryModel('Theater', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Monument', id_user=0)
+    me = CategoryModel('Monument', id_user=1)
 
     db.session.add(me)
     db.session.commit()
@@ -53,7 +53,7 @@ api.add_resource(Comment,       "/tourist-spots/<int:id_tourist_spot>/comments")
 
 api.add_resource(UserList,      "/users")
 api.add_resource(UserRegister,  "/users/register")
-api.add_resource(Favorite,      "/users/<int:id_user>/favorite")
+api.add_resource(Favorite,      "/users/<int:id_user>/favorites")
 
 
 # prevent to run the app when import source
