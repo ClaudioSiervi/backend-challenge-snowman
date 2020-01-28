@@ -9,6 +9,8 @@ class UserModel(db.Model):
 
     category = db.relationship('CategoryModel')
     picture = db.relationship('PictureModel')
+    comment =  db.relationship('CommentModel')
+    favorite = db.relationship('FavoriteModel')
 
     def __init__(self, username, password):
         self.username = username

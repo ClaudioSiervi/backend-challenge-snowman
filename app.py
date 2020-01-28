@@ -6,6 +6,8 @@ from flask_restful import Api, Resource, reqparse
 from resources.tourist_spot import TouristSpot, TouristFilter
 from resources.category import Category, CategoryFinder, CategoryModel
 from resources.picture import Picture
+from resources.comment import Comment
+from resources.favorite import Favorite
 from security import authenticate, identity
 from resources.user import UserRegister, UserList
 from db import db
@@ -45,10 +47,13 @@ api.add_resource(CategoryFinder, "/categories/<string:name>")
 api.add_resource(TouristSpot,   "/tourist-spots")
 api.add_resource(TouristFilter, "/tourist-spots/<string:name>")
 
-api.add_resource(Picture, "/tourist-spots/<int:id_tourist_spot>/pictures")
+api.add_resource(Picture,       "/tourist-spots/<int:id_tourist_spot>/pictures")
 
-api.add_resource(UserList, "/users")
-api.add_resource(UserRegister, "/users/register")
+api.add_resource(Comment,       "/tourist-spots/<int:id_tourist_spot>/comments")
+
+api.add_resource(UserList,      "/users")
+api.add_resource(UserRegister,  "/users/register")
+api.add_resource(Favorite,      "/users/<int:id_user>/favorite")
 
 
 # prevent to run the app when import source
