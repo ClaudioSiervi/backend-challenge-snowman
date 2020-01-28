@@ -10,13 +10,13 @@ def create_tables():
     db.create_all()
     
     # id_user = 0 --> admin
-    me = CategoryModel('Park', id_user=0)
+    me = CategoryModel('Park', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Museum', id_user=0)
+    me = CategoryModel('Museum', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Theater', id_user=0)
+    me = CategoryModel('Theater', id_user=1)
     db.session.add(me)
-    me = CategoryModel('Monument', id_user=0)
+    me = CategoryModel('Monument', id_user=1)
 
     db.session.add(me)
     db.session.commit()
