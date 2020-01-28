@@ -9,14 +9,17 @@ class PictureModel(db.Model):
     name = db.Column(db.String(50))
     img_link = db.Column(db.String(100))  # url picture 
     id_tourist_spot = db.Column(db.Integer, db.ForeignKey('tourist_spots.id'))
-    
+    id_user = db.Column(db.Integer, db.ForeignKey('users.id'))
+
     tourist_spot = db.relationship('TouristSpotModel')
+    user = db.relationship('UserModel')
 
 
-    def __init__(self, name, img_link, id_tourist_spot):
+    def __init__(self, name, img_link, id_tourist_spot, id_user):
         self.name = name
         self.img_link = img_link
         self.id_tourist_spot = id_tourist_spot
+        self.id_user = id_user
 
 
     def json(self):
@@ -24,7 +27,8 @@ class PictureModel(db.Model):
                 "id"   : self.id,
                 "name" : self.name,
                 "img_link" : self.img_link,
-                "id_tourist_spot" : self.id_tourist_spot
+                "id_tourist_spot" : self.id_tourist_spot,
+                "id_user" : self.id_user
         }
     
     def save_to_db(self):  

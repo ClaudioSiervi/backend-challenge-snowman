@@ -18,7 +18,10 @@ class Picture(Resource):
     parser.add_argument("id_tourist_spot", 
                     type=int, 
                     help="The field 'id_tourist_spot' cannot be left blank!")
-   
+    parser.add_argument("id_user", 
+                    type=int, 
+                    help="The field 'id_tourist_spot' cannot be left blank!")
+
     def get(self, id_tourist_spot):
         # GET /tourist-spot/<id>/picture
         return {"picture_list": list(map(lambda x: x.json(), PictureModel.find_pictures_by_tourist_spot_id(id_tourist_spot)))}
