@@ -39,13 +39,13 @@ def create_tables():
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
-# api.add_resource(Picture, "/tourist_spots/<string:name>/picture")
-
 api.add_resource(Category,       "/categories")
 api.add_resource(CategoryFinder, "/categories/<string:name>")
 
 api.add_resource(TouristSpot,   "/tourist-spots")
 api.add_resource(TouristFilter, "/tourist-spots/<string:name>")
+
+api.add_resource(Picture, "/tourist-spots/<int:id_tourist_spot>/pictures")
 
 api.add_resource(UserList, "/users")
 api.add_resource(UserRegister, "/users/register")

@@ -7,10 +7,11 @@ class PictureModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
-    img_link = db.Column(db.String(100))  # url 
-
+    img_link = db.Column(db.String(100))  # url picture 
     id_tourist_spot = db.Column(db.Integer, db.ForeignKey('tourist_spots.id'))
+    
     tourist_spot = db.relationship('TouristSpotModel')
+
 
     def __init__(self, name, img_link, id_tourist_spot):
         self.name = name
@@ -18,15 +19,18 @@ class PictureModel(db.Model):
         self.id_tourist_spot = id_tourist_spot
 
 
-
     def json(self):
         return {
                 "id"   : self.id,
                 "name" : self.name,
                 "img_link" : self.img_link,
-                "id_tourist_spot" : id_tourist_spot
+                "id_tourist_spot" : self.id_tourist_spot
         }
     
     def save_to_db(self):  
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def find_pictures_by_tourist_spot_id(cls, id_tourist_spot):
+        return cls.query.filter_by(id_tourist_spot=id_tourist_spot)
