@@ -1,11 +1,6 @@
 # Backend Challenge
 
-Designing and implementing an API REST with Python (Flask) to the Snowman Backend Challenge.  
-https://github.com/snowmanlabs/backend-challenge
-
-#### Intro
-
-
+Designing and implementing an API REST with Python (Flask) to the [Snowman Backend Challenge](https://github.com/snowmanlabs/backend-challenge). 
 
 ### Software Requirements 
 
@@ -53,14 +48,14 @@ psycopg2 (production only)
 
 ### Config Remote Environment
 
-1.  Connect to Git and create a new repo
-1.1. Clone the project repo in your machine `git clone git@github.com:ClaudioSiervi/backend-challenge-snowman.git`
-1.2. Change the remote repo URL `git remote set-url origin [new Git repo URL]`
+1.  Connect to Git and create a new repo   
+1.1. Clone the project repo in your machine `git clone git@github.com:ClaudioSiervi/backend-challenge-snowman.git`  
+1.2. Change the remote repo URL `git remote set-url origin [new Git repo URL]`  
 
-2. Connect to [Heroku](heroku.com) and create a new app
-2.1. Select 'Heroku Postgres' in the Add-ons field (Resource tab)
-2.2. Select the plan name: Hobby Dev - Free
-2.3. Select 'Connect to GitHub' in the deployment method (Deploy tab)
-2.4. Search by the [new Git repo name]
-2.6. Connect to the [new Git repo]
-2.7. Select deploy branch
+2. Connect to [Heroku](heroku.com) and create a new app  
+2.1. Select 'Heroku Postgres' in the Add-ons field (Resource tab)  
+2.2. Select the plan name: Hobby Dev - Free  
+2.3. Select 'Connect to GitHub' in the deployment method (Deploy tab)  
+2.4. Search by the [new Git repo name]  
+2.6. Connect to the [new Git repo]  
+2.7. Select deploy branch  
