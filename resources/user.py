@@ -21,7 +21,7 @@ class UserRegister(Resource):
         data = cls.parser.parse_args()
 
         if UserModel.find_by_username(data['username']) is not None:
-            return {"messege ": "This username already exists."}
+            return {"messege ": "This username already exists."}, 400
 
         user = UserModel(**data)
         try:

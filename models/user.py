@@ -13,7 +13,8 @@ class UserModel(db.Model):
 
     def json(self):
         return {
-            "username" : self.username
+            "username" : self.username,
+            "password" : self.password
         }
 
     @classmethod
