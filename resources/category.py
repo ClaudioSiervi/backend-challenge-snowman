@@ -3,11 +3,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
 from models.category import CategoryModel
-
-
-class CategoryRegister(Resource):
-    pass
-
+from db import db
 
 class Category(Resource):
 
@@ -17,13 +13,18 @@ class Category(Resource):
                     type=str, 
                     help="The field 'name' cannot be left blank!")
 
-   
+    parser.add_argument("user_id", 
+                type=str, 
+                help="The field 'user_id' cannot be left blank!")
+
+    # @jwt_required
     def get(self):
+        # GET /category
         return {"category_list": list(map(lambda x: x.json(), CategoryModel.query.all()))}
 
-    
+    # @jwt_required()
     def post(cls):
-
+        # POST /category
         data = cls.parser.parse_args()  
 
         category = CategoryModel(**data)
@@ -35,8 +36,8 @@ class Category(Resource):
         
 
 class CategoryFinder(Resource):
-
     
     def get(self, name):
+        # GET /category/<string:name>
         category = CategoryModel.find_category_by_name(name)
         return {"category_list": list(map(lambda x: x.json(), category))}

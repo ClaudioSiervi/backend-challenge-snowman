@@ -24,14 +24,14 @@ api = Api(app)
 def create_tables():
 
     db.create_all()
-    
-    me = CategoryModel('Park')
+    # id_user = 0 --> admin
+    me = CategoryModel('Park', id_user=0)
     db.session.add(me)
-    me = CategoryModel('Museum')
+    me = CategoryModel('Museum', id_user=0)
     db.session.add(me)
-    me = CategoryModel('Theater')
+    me = CategoryModel('Theater', id_user=0)
     db.session.add(me)
-    me = CategoryModel('Monument')
+    me = CategoryModel('Monument', id_user=0)
 
     db.session.add(me)
     db.session.commit()
