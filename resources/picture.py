@@ -18,20 +18,23 @@ class Picture(Resource):
     parser.add_argument("id_tourist_spot", 
                     type=int, 
                     help="The field 'id_tourist_spot' cannot be left blank!")
-   
-    def get(self, id_tourist_spot):
-        # GET /picture
-        return {"category_list": list(map(lambda x: x.json(), CategoryModel.query.all()))}
+    parser.add_argument("id_user", 
+                    type=int, 
+                    help="The field 'id_tourist_spot' cannot be left blank!")
 
-    
+    def get(self, id_tourist_spot):
+        # GET /tourist-spot/<id>/picture
+        return {"picture_list": list(map(lambda x: x.json(), PictureModel.find_pictures_by_tourist_spot_id(id_tourist_spot)))}
+
+
     def post(cls, id_tourist_spot):
-        # POST /picture
+        # POST /tourist-spot/<id>/picture
         data = cls.parser.parse_args()  
 
-        category = PictureModel(**data)
+        picture = PictureModel(**data)
         try:
-            category.save_to_db()
+            picture.save_to_db()
         except:
              return {"Messege": "An error occured inserting the picture."}, 500
-        return category.json(), 201
+        return picture.json(), 201
         

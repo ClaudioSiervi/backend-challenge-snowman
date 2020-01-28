@@ -8,6 +8,7 @@ class UserModel(db.Model):
     password = db.Column(db.String(50))
 
     category = db.relationship('CategoryModel')
+    picture = db.relationship('PictureModel')
 
     def __init__(self, username, password):
         self.username = username
