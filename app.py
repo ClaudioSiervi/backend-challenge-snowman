@@ -9,7 +9,7 @@ from resources.picture import Picture
 from resources.comment import Comment
 from resources.favorite import Favorite
 from security import authenticate, identity
-from resources.user import UserRegister, UserList
+from resources.user import UserRegister, UserList,UserModel
 from db import db
 
 app = Flask(__name__)
@@ -26,7 +26,11 @@ api = Api(app)
 def create_tables():
 
     db.create_all()
-    # id_user = 0 --> admin
+
+    # id_user = 1 --> admin
+    us = UserModel(username='claudio', password='snow')
+    db.session.add(us)
+
     me = CategoryModel('Park', id_user=1)
     db.session.add(me)
     me = CategoryModel('Museum', id_user=1)
