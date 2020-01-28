@@ -26,7 +26,7 @@ class TouristSpot(Resource):
             return {"tourist_spot_list": list(map(lambda x: x.json(), TouristSpotModel.query.all()))}
 
     # POST /tourist-spot
-    @jwt_required() # activate only after refactory user model and resource
+    # @jwt_required() 
     def post(cls):
 
         data = cls.parser.parse_args()  

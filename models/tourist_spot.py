@@ -9,6 +9,7 @@ class TouristSpotModel(db.Model):
 
     id_category = db.Column(db.Integer, db.ForeignKey('categories.id'))
     category = db.relationship('CategoryModel')
+    # picture = db.relationship('PictureModel')
 
     def __init__(self, name, gps, id_category):
         self.name = name
@@ -17,6 +18,7 @@ class TouristSpotModel(db.Model):
 
     def json(self):
         return {
+            "id": self.id,
             "name" : self.name,
             "gps" : self.gps,
             "id_category" : self.id_category

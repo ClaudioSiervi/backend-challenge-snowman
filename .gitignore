@@ -13,3 +13,7 @@ __pycache__/
 *.csv
 
 ~$*.csv
+
+*.png
+
+*.db
