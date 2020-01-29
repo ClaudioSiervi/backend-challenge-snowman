@@ -26,7 +26,7 @@ class Picture(Resource):
         # GET /tourist-spot/<id>/picture
         return {"picture_list": list(map(lambda x: x.json(), PictureModel.find_pictures_by_tourist_spot_id(id_tourist_spot)))}
 
-
+    @jwt_required() 
     def post(cls, id_tourist_spot):
         # POST /tourist-spot/<id>/picture
         data = cls.parser.parse_args()  

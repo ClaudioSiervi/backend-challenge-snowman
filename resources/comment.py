@@ -1,5 +1,6 @@
 
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 
 from models.comment import CommentModel
 
@@ -17,12 +18,13 @@ class Comment(Resource):
     parser.add_argument("id_user", 
                     type=int, 
                     help="The field 'id_tourist_spot' cannot be left blank!")
-
+    
+    @jwt_required() 
     def get(self, id_tourist_spot):
         # GET /tourist-spot/<id>/picture
         return {"commentary_list": list(map(lambda x: x.json(), CommentModel.find_comment_by_id_tourist_spot(id_tourist_spot)))}
 
-
+    @jwt_required() 
     def post(cls, id_tourist_spot):
         # POST /tourist-spot/<id>/picture
         data = cls.parser.parse_args()  
