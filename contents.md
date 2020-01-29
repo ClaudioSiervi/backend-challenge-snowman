@@ -58,13 +58,13 @@ GET /tourist-spots/nearest-5km-tourist-spots
 GET  /tourist-spots/<string:name>
 POST /tourist-spots/<string:name>
 
-GET  /tourist-spots/<string:name>/pictures
-POST /tourist-spots/<string:name>/pictures
-DEL  /tourist-spots/<string:name>/pictures
+GET  /tourist-spots/<id>/pictures
+POST /tourist-spots/<id>/pictures
+DEL  /tourist-spots/<id>/pictures
 
-GET  /tourist-spots/<string:name>/favorities
-POST /tourist-spots/<string:name>/favorities
-DEL  /tourist-spots/<string:name>/favorities
+GET  /tourist-spots/<id>/favorities
+POST /tourist-spots/<id>/favorities
+DEL  /tourist-spots/<id>/favorities
 
-GET  /tourist-spots/<string:name>/commentaries
-POST /tourist-spots/<string:name>/commentaries
+GET  /tourist-spots/<id>/commentaries
+POST /tourist-spots/<id>/commentaries
