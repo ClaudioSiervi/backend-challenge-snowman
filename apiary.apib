@@ -42,6 +42,9 @@ This app allows users create and explore tourist spots on a map.
 + id_tourist_spot
 + id_user
 
+## Picture (object)
+
+
 
 # User [/users]
 
@@ -169,26 +172,7 @@ This app allows users create and explore tourist spots on a map.
     
     
     
-### Show Commentaries [GET /tourist-spots/{_id}/comments]
-
-+ Parameters
-      +  _id (integer)
-      
-      
-+ Request
-
-    + Headers
-    
-            Content-Type: application/json
-
-+ Response 201 (application/json)
-
-    + Attributes (array[Commentary])
-
-
-
-
-### Add Commentary [POST /tourist-spots/{_id}/comments]
+### Add Comment [POST /tourist-spots/{_id}/comments]
 
 + Parameters
       +  _id (integer)
@@ -212,6 +196,72 @@ This app allows users create and explore tourist spots on a map.
 + Response 201 (application/json)
 
     + Attributes (array[Commentary])
+
+
+
+### Show Comments [GET /tourist-spots/{_id}/comments]
+
++ Parameters
+      +  _id (integer)
+      
+      
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+
++ Response 201 (application/json)
+
+    + Attributes (array[Commentary])
+    
+    
+
+### Add Picture [POST /tourist-spots/{_id}/pictures]
+
++ Parameters
+      +  _id (integer)
+      
+      
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+    
+            Authorization: JWT <paste_access_token_here>
+    + Body
+
+            {
+            "name": "foto do local",
+            "img_link" : "www.fotodolocal.com",
+            "id_tourist_spot": 1,
+            "id_user": 1
+            }
+
++ Response 201 (application/json)
+
+    + Attributes (array[Picture])
+    
+    
+    
+    
+### Show Pictures [GET /tourist-spots/{_id}/pictures]
+
++ Parameters
+      +  _id (integer)
+      
+      
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+
++ Response 201 (application/json)
+
+    + Attributes (array[Picture])
+    
 
 
 # Category [/categories]
