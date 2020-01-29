@@ -26,7 +26,7 @@ class TouristSpot(Resource):
             return {"tourist_spot_list": list(map(lambda x: x.json(), TouristSpotModel.query.all()))}
 
     # POST /tourist-spot
-    # @jwt_required() 
+    @jwt_required() 
     def post(cls):
 
         data = cls.parser.parse_args()  
@@ -41,6 +41,7 @@ class TouristSpot(Resource):
 
 class TouristFilter(Resource):
     # GET /tourist-spot/<string:name>
+    @jwt_required() 
     def get(cls, name):
         try:
             tourist_spot = TouristSpotModel.find_spots_by_name(name)

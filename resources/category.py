@@ -17,12 +17,11 @@ class Category(Resource):
                 type=str, 
                 help="The field 'user_id' cannot be left blank!")
 
-    # @jwt_required
     def get(self):
         # GET /category
         return {"category_list": list(map(lambda x: x.json(), CategoryModel.query.all()))}
 
-    # @jwt_required()
+    @jwt_required()
     def post(cls):
         # POST /category
         data = cls.parser.parse_args()  
