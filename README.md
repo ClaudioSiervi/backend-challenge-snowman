@@ -25,11 +25,12 @@ psycopg2 (production only)
 1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 2. Install [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md)   
 3. Install [Postman](https://www.getpostman.com/downloads/)   
-4. Install VirtualEnv `conda install virtualenv`  
-5. Create a VirtualEnv `virtualenv -p python3 vm_python_dev`  
-6. Activate VirtualEnv by running `activate.bat` inside the path `~/vm_python_dev/Scripts`  
-7. Install the required packages in the VirtualEnv environment:`pip3 install -r requirements/dev.txt` 
-8. Run the app `python app.py`
+4. Open Anaconda Prompt (Miniconda3)  
+5. Install VirtualEnv `conda install virtualenv`  
+6. Create a VirtualEnv `virtualenv -p python3 vm_python_dev`  
+7. Activate VirtualEnv by running `activate.bat` inside the path `~/vm_python_dev/Scripts`  
+8. Install the required packages inside VirtualEnv Dev environment running the dev requirements into git repository `pip3 install -r requirements/dev.txt` 
+9. Run the app `python app.py`
 
 
 #### Mac
@@ -38,14 +39,13 @@ psycopg2 (production only)
 2. Install [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md)   
 3. Install [Postman](https://www.getpostman.com/downloads/)   
 4. Install VirtualEnv `brew install virtualenv`  
-5. Open Anaconda Prompt (Miniconda3)  
-6. Create a VirtualEnv `virtualenv -p python3 vm_python_dev`
-7. Activate VirtualEnv by running `source activate` inside the path `~/vm_python_dev/bin` 
-8. Install the required packages inside VirtualEnv Dev environment:`pip3 install -r requirements/dev.txt`  
-9. Run the app: `python app.py`
+5. Create a VirtualEnv `virtualenv -p python3 vm_python_dev`
+6. Activate VirtualEnv by running `source activate` inside the path `~/vm_python_dev/bin` 
+7. Install the required packages inside VirtualEnv Dev environment running the dev requirements into git repository `pip3 install -r requirements/dev.txt`  
+8. Run the app: `python app.py`
 
 
-### Config Remote Environment
+### Deploy Environment
 
 1.  Connect to Git and create a new repo   
 1.1. Clone the project repo in your machine `git clone git@github.com:ClaudioSiervi/backend-challenge-snowman.git`  
