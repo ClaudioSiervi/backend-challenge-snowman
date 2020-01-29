@@ -3,7 +3,8 @@ HOST: https://snowman-challange-api.herokuapp.com
 
 # Snowman Backend Challenge
 
-That is a simple API allowing users to view tourist spots and vote in them.
+API designed with REST architeture style to the Snowman Backend Challenge.  
+This app allows users create and explore tourist spots on a map.
 
 # Data Structures
 
@@ -13,9 +14,18 @@ That is a simple API allowing users to view tourist spots and vote in them.
 + password
 
 ## UserRegister (object)
++ id
 + username
 + password
 
+## UserFAvorite (object)
++ id
++ id_tourist_spot
++ id_user
+
+
+## UserAccessToken (object)
++ acesso_token
 
 ## TouristSpot (object)
 + id
@@ -23,21 +33,25 @@ That is a simple API allowing users to view tourist spots and vote in them.
 + gps
 + id_category
 
-# Category (object)
+## Category (object)
 + id
 + name
 
+## Commentary (object)
++ comment
++ id_tourist_spot
++ id_user
 
-# Group API Endpoints
 
-## User [/users]
+# User [/users]
+
 ### User List [GET]
 + Response 200 (application/json)
 
     + Attributes (array[User])
 
+### User Register [POST /users/register]
 
-### User Registry [POST /user/register]
 + Request
 
     + Headers
@@ -50,13 +64,41 @@ That is a simple API allowing users to view tourist spots and vote in them.
                 "username":"Usuario",
                 "password":"54321"
             }
+            
++ Response 201 (application/json)
+
+    + Attributes (array[UserRegister])
+    
+    
+
+
+
+### User Favorites [POST /users/{id}/favorites]
++ Parameters
+      +  id (integer)
+          
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+            
+    + Body
+
+            {
+                "id_tourist_spot": 1,
+                "id_user": 1
+            }
+
 
 + Response 201 (application/json)
 
     + Attributes (array[UserRegister])
     
     
-### User Acess Token [POST /auth]
+    
+    
+### User Access Token [POST /auth]
 + Request
 
     + Headers
@@ -66,25 +108,21 @@ That is a simple API allowing users to view tourist spots and vote in them.
     + Body
 
             {
-                "username":"Lucas",
-                "password":"qwer"
+                "username":"claudio",
+                "password":"snow"
             }
 
 + Response 201 (application/json)
 
-    + Attributes (array[UserRegister])
+    + Attributes (array[UserAccessToken])
     
     
 
-## Tourist Spot [/tourist-spot]
-### Tourist Spot List [GET]
-+ Response 200 (application/json)
 
-    + Attributes (array[TouristSpot])
-    
+# Tourist Spot [/tourist-spots]
 
+### Tourist Spot Register [POST /tourist-spots]
 
-### Tourist Spot Registry [POST /tourist-spot]
 + Request
 
     + Headers
@@ -92,7 +130,6 @@ That is a simple API allowing users to view tourist spots and vote in them.
             Content-Type: application/json
     
             Authorization: JWT <paste_here_the_access_token>
-
     + Body
 
             {
@@ -100,22 +137,94 @@ That is a simple API allowing users to view tourist spots and vote in them.
                 "gps":"(lati, long)",
                 "id_category": 1
             }
-
 + Response 201 (application/json)
+
+    + Attributes (array[TouristSpot])
+    
+    
+### Tourist Spot List [GET]
+
++ Response 200 (application/json)
 
     + Attributes (array[TouristSpot])
     
 
 
 
-## Category [/category]
+### Tourist Spot Search by Name [GET /tourist-spots/{name}]
++ Parameters
+      +  name (string)
+
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+    
+            Authorization: JWT <paste_access_token_here>
+
++ Response 201 (application/json)
+
+    + Attributes (array[TouristSpot])
+    
+    
+    
+### Show Commentaries [GET /tourist-spots/{_id}/comments]
+
++ Parameters
+      +  _id (integer)
+      
+      
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+
++ Response 201 (application/json)
+
+    + Attributes (array[Commentary])
+
+
+
+
+### Add Commentary [POST /tourist-spots/{_id}/comments]
+
++ Parameters
+      +  _id (integer)
+      
+      
++ Request
+
+    + Headers
+    
+            Content-Type: application/json
+    
+            Authorization: JWT <paste_access_token_here>
+    + Body
+
+            {
+                "comment":"Awesome!!",
+                "id_tourist_spot":1,
+                "id_user":1
+            }
+
++ Response 201 (application/json)
+
+    + Attributes (array[Commentary])
+
+
+# Category [/categories]
+
 ### Category List [GET]
+
 + Response 200 (application/json)
 
     + Attributes (array[Category])
 
 
-### Category Registry [POST /category]
+### Category Registry [POST /categories]
+
 + Request
 
     + Headers
@@ -125,7 +234,7 @@ That is a simple API allowing users to view tourist spots and vote in them.
     + Body
 
             {
-                "name":"Beach"
+                "name":"Mountain"
             }
 
 + Response 201 (application/json)
