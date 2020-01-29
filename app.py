@@ -22,6 +22,24 @@ app.secret_key = "snowman"
 
 api = Api(app)
 
+
+jwt = JWT(app, authenticate, identity)  # /auth
+
+api.add_resource(Category,       "/categories")
+api.add_resource(CategoryFinder, "/categories/<string:name>")
+
+api.add_resource(TouristSpot,   "/tourist-spots")
+api.add_resource(TouristFilter, "/tourist-spots/<string:name>")
+
+api.add_resource(Picture,       "/tourist-spots/<int:id_tourist_spot>/pictures")
+
+api.add_resource(Comment,       "/tourist-spots/<int:id_tourist_spot>/comments")
+
+api.add_resource(UserList,      "/users")
+api.add_resource(UserRegister,  "/users/register")
+api.add_resource(Favorite,      "/users/<int:id_user>/favorites")
+
+
 @app.before_first_request
 def create_tables():
 
@@ -47,24 +65,6 @@ def create_tables():
         db.session.add(me)
 
         db.session.commit()
-
-
-
-jwt = JWT(app, authenticate, identity)  # /auth
-
-api.add_resource(Category,       "/categories")
-api.add_resource(CategoryFinder, "/categories/<string:name>")
-
-api.add_resource(TouristSpot,   "/tourist-spots")
-api.add_resource(TouristFilter, "/tourist-spots/<string:name>")
-
-api.add_resource(Picture,       "/tourist-spots/<int:id_tourist_spot>/pictures")
-
-api.add_resource(Comment,       "/tourist-spots/<int:id_tourist_spot>/comments")
-
-api.add_resource(UserList,      "/users")
-api.add_resource(UserRegister,  "/users/register")
-api.add_resource(Favorite,      "/users/<int:id_user>/favorites")
 
 
 # prevent to run the app when import source
